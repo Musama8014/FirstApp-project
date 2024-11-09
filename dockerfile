@@ -1,5 +1,5 @@
 FROM node:latest
-WORKDIR /home/usama/Desktop/FirstApp-project/index.js
+WORKDIR /home/usama/Desktop/firstapp-project/index.js
 RUN npm install -g nodemon
 COPY .  .
 RUN npm install
