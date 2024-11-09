@@ -17,7 +17,7 @@ jobs:
       - name: Checkout FirstApp-project
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js (with the latest stable version)
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -29,23 +29,23 @@ jobs:
 
       # Step 4: Build Docker image
       - name: Build Docker image
-        run: docker build -t musama8014/firstapp-project:${{ github.sha }} .
+        run: docker build -t usama303/firstapp-project:${{ github.sha }} .
 
       # Step 5: Log in to Docker Hub using the Access Token
       - name: Log in to Docker Hub
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}   # Docker Hub username from secrets
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}   # Docker Hub Access Token from secrets
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  # Docker Hub username (usama303)
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # Docker Hub Access Token
         run: |
           echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
       # Step 6: Push Docker image to Docker Hub
       - name: Push Docker image
-        run: docker push musama8014/firstapp-project:${{ github.sha }}
+        run: docker push usama303/firstapp-project:${{ github.sha }}
 
       # Step 7: Tag and push Docker image as latest (if on main branch)
       - name: Tag and push as latest
         if: github.ref == 'refs/heads/main'
         run: |
-          docker tag musama8014/firstapp-project:${{ github.sha }} musama8014/firstapp-project:latest
-          docker push musama8014/firstapp-project:latest
+          docker tag usama303/firstapp-project:${{ github.sha }} usama303/firstapp-project:latest
+          docker push usama303/firstapp-project:latest
