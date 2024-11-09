@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI/CD Pipeline for FirstApp-project
 
 on:
   push:
@@ -13,25 +13,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Display GitHub Context for Debugging
+      - name: Display GitHub Context
+        run: |
+          echo "Branch: ${{ github.ref }}"
+          echo "Repository: ${{ github.repository }}"
+
       # Checkout the repository with the latest version
-      - name: Checkout code
-        uses: actions/checkout@v3  # Update to v3 for compatibility
+      - name: Checkout FirstApp-project
+        uses: actions/checkout@v3
 
       # Set up Node.js with the latest version
-      - name: Set up Node.js
-        uses: actions/setup-node@v3  # Update to v3 for compatibility
+      - name: Set up Node.js for FirstApp-project
+        uses: actions/setup-node@v3
         with:
-          node-version: '20'  # Use the latest compatible version
+          node-version: '20'
 
       # Install dependencies
-      - name: Install dependencies
+      - name: Install dependencies for FirstApp-project
         run: npm install
 
       # Run tests (if you have any)
-      - name: Run tests
+      - name: Run tests for FirstApp-project
         run: npm test
 
-      # Build Docker image
+      # Build Docker image for FirstApp-project
       - name: Build Docker image
         run: docker build -t ${{ github.repository }}:${{ github.sha }} .
 
