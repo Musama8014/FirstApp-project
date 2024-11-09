@@ -17,7 +17,7 @@ jobs:
       - name: Checkout FirstApp-project
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js (with latest stable version)
+      # Step 2: Set up Node.js (with the latest stable version)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -31,13 +31,13 @@ jobs:
       - name: Build Docker image
         run: docker build -t musama8014/firstapp-project:${{ github.sha }} .
 
-      # Step 5: Log in to Docker Hub (using username and password stored in GitHub Secrets)
+      # Step 5: Log in to Docker Hub using the Access Token
       - name: Log in to Docker Hub
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}   # Docker Hub username from secrets
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}   # Docker Hub Access Token from secrets
         run: |
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
       # Step 6: Push Docker image to Docker Hub
       - name: Push Docker image
